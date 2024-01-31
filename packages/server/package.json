@@ -1,0 +1,20 @@
+{
+	"name": "@ivooxrss/server",
+	"version": "0.0.0",
+	"description": "",
+	"private": true,
+	"scripts": {
+		"typecheck": "tsc",
+		"test": "exit 0"
+	},
+	"type": "module",
+	"devDependencies": {
+		"@types/node": "^20.11.14",
+		"tsx": "^4.7.0",
+		"typescript": "^5.3.3"
+	},
+	"dependencies": {
+		"itty-router": "^4.0.27",
+		"@ivooxrss/ivoox": "*"
+	}
+}

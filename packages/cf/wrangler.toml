@@ -1,0 +1,8 @@
+name = "ivooxrss"
+main = "./worker.ts"
+compatibility_date = "2024-02-01"
+
+[env.prod.vars]
+BASE_URL = "https://ivooxrss-prod.ivooxrss.workers.dev/"
+IVOOX_BASE_URL = "https://www.ivoox.com/"
+LOG_LEVEL = "info"

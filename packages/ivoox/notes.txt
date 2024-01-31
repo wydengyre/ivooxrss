@@ -1,0 +1,140 @@
+Working on the program El Ocaso de Roma: https://www.ivoox.com/en/podcast-ocaso-de-roma_sq_f1372665_1.html
+
+The linked RSS feed is stored in the test dir.
+
+First enclosure link is:
+https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_mf_121630930_feed_1.mp3?d=1703546049
+
+Loading file directly:
+Loading file without d=1703546049: same size
+11:30 appears to be interrupted
+
+Link to ep87 on web page: https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y-audios-mp3_rf_121630930_1.html
+"Download in pc" button: https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZukfKGwng..
+wget without t= 232kb file that doesn't play
+same with t=
+right click and save as in Chrome...
+gets full file. hmmm.
+
+Curl pretending to be chrome: curl -L -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36" -o "filename.mp3" "https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZukfKGwng.."
+still fails
+
+In browser, it makes some kind of API GET request first:
+https://api.ivoox.com/1-1/?function=setAudioEvents&audioId=121630930&ts=1706668867&platform=Mac%20OS%20X&audioSession=12163093017066688673076054178890446382&so=Mac%20OS%20X%2010_15_7&type=START_DOWNLOAD&uId=3076054178890446382&preview=0&format=json&web=true&callback=jQuery1111020288838474938742_1706668289953&_=1706668289956
+
+Then it GETS the mp3 at https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZukfKGwng..
+curl 'https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZukfKGwng..' \
+  -H 'authority: www.ivoox.com' \
+  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cookie: attributionCookie=%7B%22utm_campaign%22%3A%22unset%22%2C%22utm_content%22%3A%22unset%22%2C%22utm_source%22%3A%22unset%22%2C%22utm_medium%22%3A%22unset%22%2C%22utm_term%22%3A%22unset%22%7D; IE-set_country=RVM%3D; IE-LANG_CODE=ZW5fVVM%3D; i18n=en; IE-jwt=ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnBZWFFpT2pFM01EWTJOamd5T1RBc0ltVjRjQ0k2TVRjd05qZzBNVEE1TUN3aWRXbGtJam93ZlEuUDI0WDZBYVEzVE42VE8wNmxWNV94SW01cE1YeFBjLTA3SktPLUM5Yy1RMA%3D%3D; didomi_token=eyJ1c2VyX2lkIjoiMThkNWQ1YjctNDhjZi02MWE1LWJmZTEtMTAwYjJlYTg3NzY2IiwiY3JlYXRlZCI6IjIwMjQtMDEtMzFUMDI6MzE6MzEuMjI0WiIsInVwZGF0ZWQiOiIyMDI0LTAxLTMxVDAyOjMxOjM0LjY0OFoiLCJ2ZW5kb3JzIjp7ImRpc2FibGVkIjpbImdvb2dsZSIsImM6YW1wbGl0dWRlIiwiYzpjb21zY29yZS1lV2lOZThNRiIsImM6ZGlkb21pIiwiYzpob3RqYXIiLCJjOm5ldy1yZWxpYyIsImM6aXZvb3gtOUhZSEtVM1oiLCJjOm1pY3Jvc29mdC1hbmFseXRpY3MiLCJjOmdvb2dsZWFuYS00VFhuSmlnUiIsImM6YXBwbGVsb2dpLWFXRUVlWVFjIl19LCJwdXJwb3NlcyI6eyJkaXNhYmxlZCI6WyJnZW9fYWRzIiwiZ2VvX21hcmtldGluZ19zdHVkaWVzIiwiZGV2aWNlX2NoYXJhY3RlcmlzdGljcyIsImdlb2xvY2F0aW9uX2RhdGEiXX0sInZlbmRvcnNfbGkiOnsiZW5hYmxlZCI6WyJnb29nbGUiLCJjOmFwcGxlbG9naS1hV0VFZVlRYyJdfSwicHVycG9zZXNfbGkiOnsiZW5hYmxlZCI6WyJnZW9sb2NhdGlvbl9kYXRhIiwiZ2VvX21hcmtldGluZ19zdHVkaWVzIiwiZ2VvX2FkcyIsImRldmljZV9jaGFyYWN0ZXJpc3RpY3MiXX0sInZlcnNpb24iOjIsImFjIjoiQUFBQS5BRm1BQ0FGayJ9; euconsent-v2=CP5P4cAP5P4cAAHABBENAkEgAAAAAEPgAAAAAABBqALMNCogD7AkJCLQcIoEAIgrCAigUAAAAkDRAQAmDAp2BgEusJEAIEUAAwQAgABRkACAAACABCIAJACgQAAQCAQAAAAACAQAEDAAKACwEAgABAdAxTCgAUCwgSMyIhTAhCgSCAlsoEEgLBBXCAIs8AKAREwUACAAABWAAACxWAxBICVCQQJZQbQAAEACAUUoVCCTwwADAkbLUDgibRlYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA.YAAACHwAAAAA; cookies_policy_accepted=b24gMjAyNC0wMS0zMSAwMzo0MDo1OSBpbXBsaWNpdA%3D%3D; countAudios=2; countaudioplay=a%3A1%3A%7Bi%3A121630930%3Bi%3A2%3B%7D' \
+  -H 'dnt: 1' \
+  -H 'referer: https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y-audios-mp3_rf_121630930_1.html' \
+  -H 'sec-ch-ua: "Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: document' \
+  -H 'sec-fetch-mode: navigate' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'sec-fetch-user: ?1' \
+  -H 'upgrade-insecure-requests: 1' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36' \
+  --compressed
+
+Response is a 302 to https://audio.ivoox.com/audio/0/3/9/0/ep87constantinoreformasnecesariasii-ocasoroma-ivoox121630930.mp3?secure=KY3f7k4CSFQFFMEUHPsA7A==,1706676152
+GET https://audio.ivoox.com/audio/0/3/9/0/ep87constantinoreformasnecesariasii-ocasoroma-ivoox121630930.mp3?secure=KY3f7k4CSFQFFMEUHPsA7A==,1706676152
+curl 'https://audio.ivoox.com/audio/0/3/9/0/ep87constantinoreformasnecesariasii-ocasoroma-ivoox121630930.mp3?secure=KY3f7k4CSFQFFMEUHPsA7A==,1706676152' \
+  -H 'authority: audio.ivoox.com' \
+  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cookie: attributionCookie=%7B%22utm_campaign%22%3A%22unset%22%2C%22utm_content%22%3A%22unset%22%2C%22utm_source%22%3A%22unset%22%2C%22utm_medium%22%3A%22unset%22%2C%22utm_term%22%3A%22unset%22%7D; IE-set_country=RVM%3D; IE-LANG_CODE=ZW5fVVM%3D; i18n=en; IE-jwt=ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnBZWFFpT2pFM01EWTJOamd5T1RBc0ltVjRjQ0k2TVRjd05qZzBNVEE1TUN3aWRXbGtJam93ZlEuUDI0WDZBYVEzVE42VE8wNmxWNV94SW01cE1YeFBjLTA3SktPLUM5Yy1RMA%3D%3D; didomi_token=eyJ1c2VyX2lkIjoiMThkNWQ1YjctNDhjZi02MWE1LWJmZTEtMTAwYjJlYTg3NzY2IiwiY3JlYXRlZCI6IjIwMjQtMDEtMzFUMDI6MzE6MzEuMjI0WiIsInVwZGF0ZWQiOiIyMDI0LTAxLTMxVDAyOjMxOjM0LjY0OFoiLCJ2ZW5kb3JzIjp7ImRpc2FibGVkIjpbImdvb2dsZSIsImM6YW1wbGl0dWRlIiwiYzpjb21zY29yZS1lV2lOZThNRiIsImM6ZGlkb21pIiwiYzpob3RqYXIiLCJjOm5ldy1yZWxpYyIsImM6aXZvb3gtOUhZSEtVM1oiLCJjOm1pY3Jvc29mdC1hbmFseXRpY3MiLCJjOmdvb2dsZWFuYS00VFhuSmlnUiIsImM6YXBwbGVsb2dpLWFXRUVlWVFjIl19LCJwdXJwb3NlcyI6eyJkaXNhYmxlZCI6WyJnZW9fYWRzIiwiZ2VvX21hcmtldGluZ19zdHVkaWVzIiwiZGV2aWNlX2NoYXJhY3RlcmlzdGljcyIsImdlb2xvY2F0aW9uX2RhdGEiXX0sInZlbmRvcnNfbGkiOnsiZW5hYmxlZCI6WyJnb29nbGUiLCJjOmFwcGxlbG9naS1hV0VFZVlRYyJdfSwicHVycG9zZXNfbGkiOnsiZW5hYmxlZCI6WyJnZW9sb2NhdGlvbl9kYXRhIiwiZ2VvX21hcmtldGluZ19zdHVkaWVzIiwiZ2VvX2FkcyIsImRldmljZV9jaGFyYWN0ZXJpc3RpY3MiXX0sInZlcnNpb24iOjIsImFjIjoiQUFBQS5BRm1BQ0FGayJ9; euconsent-v2=CP5P4cAP5P4cAAHABBENAkEgAAAAAEPgAAAAAABBqALMNCogD7AkJCLQcIoEAIgrCAigUAAAAkDRAQAmDAp2BgEusJEAIEUAAwQAgABRkACAAACABCIAJACgQAAQCAQAAAAACAQAEDAAKACwEAgABAdAxTCgAUCwgSMyIhTAhCgSCAlsoEEgLBBXCAIs8AKAREwUACAAABWAAACxWAxBICVCQQJZQbQAAEACAUUoVCCTwwADAkbLUDgibRlYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA.YAAACHwAAAAA; IE-LANG_ID=Mw%3D%3D; cookies_policy_accepted=b24gMjAyNC0wMS0zMSAwMzo0MjozMiBpbXBsaWNpdA%3D%3D; countaudioplay=a%3A1%3A%7Bi%3A121630930%3Bi%3A3%3B%7D' \
+  -H 'dnt: 1' \
+  -H 'referer: https://www.ivoox.com/' \
+  -H 'sec-ch-ua: "Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: document' \
+  -H 'sec-fetch-mode: navigate' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'sec-fetch-user: ?1' \
+  -H 'upgrade-insecure-requests: 1' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36' \
+  --compressed
+
+trying the curl line above works
+now trying without all the headers
+that also works! So at least for the binary we don't need weird headers
+Now trying without the query/secure param:
+It fails!
+
+So we need the query/secure param, which was given to us by the 302 redirect
+curl -I -L --max-redirs 0 https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZukfKGwng..
+That gives me a 301 back to https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y-audios-mp3_rf_121630930_1.html
+
+now trying the _first_ curl, with all the headers and showing resp headers etc:
+curl 'https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZukfKGwng..' \
+  -I -L --max-redirs 0 \
+  -H 'authority: www.ivoox.com' \
+  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cookie: attributionCookie=%7B%22utm_campaign%22%3A%22unset%22%2C%22utm_content%22%3A%22unset%22%2C%22utm_source%22%3A%22unset%22%2C%22utm_medium%22%3A%22unset%22%2C%22utm_term%22%3A%22unset%22%7D; IE-set_country=RVM%3D; IE-LANG_CODE=ZW5fVVM%3D; i18n=en; IE-jwt=ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnBZWFFpT2pFM01EWTJOamd5T1RBc0ltVjRjQ0k2TVRjd05qZzBNVEE1TUN3aWRXbGtJam93ZlEuUDI0WDZBYVEzVE42VE8wNmxWNV94SW01cE1YeFBjLTA3SktPLUM5Yy1RMA%3D%3D; didomi_token=eyJ1c2VyX2lkIjoiMThkNWQ1YjctNDhjZi02MWE1LWJmZTEtMTAwYjJlYTg3NzY2IiwiY3JlYXRlZCI6IjIwMjQtMDEtMzFUMDI6MzE6MzEuMjI0WiIsInVwZGF0ZWQiOiIyMDI0LTAxLTMxVDAyOjMxOjM0LjY0OFoiLCJ2ZW5kb3JzIjp7ImRpc2FibGVkIjpbImdvb2dsZSIsImM6YW1wbGl0dWRlIiwiYzpjb21zY29yZS1lV2lOZThNRiIsImM6ZGlkb21pIiwiYzpob3RqYXIiLCJjOm5ldy1yZWxpYyIsImM6aXZvb3gtOUhZSEtVM1oiLCJjOm1pY3Jvc29mdC1hbmFseXRpY3MiLCJjOmdvb2dsZWFuYS00VFhuSmlnUiIsImM6YXBwbGVsb2dpLWFXRUVlWVFjIl19LCJwdXJwb3NlcyI6eyJkaXNhYmxlZCI6WyJnZW9fYWRzIiwiZ2VvX21hcmtldGluZ19zdHVkaWVzIiwiZGV2aWNlX2NoYXJhY3RlcmlzdGljcyIsImdlb2xvY2F0aW9uX2RhdGEiXX0sInZlbmRvcnNfbGkiOnsiZW5hYmxlZCI6WyJnb29nbGUiLCJjOmFwcGxlbG9naS1hV0VFZVlRYyJdfSwicHVycG9zZXNfbGkiOnsiZW5hYmxlZCI6WyJnZW9sb2NhdGlvbl9kYXRhIiwiZ2VvX21hcmtldGluZ19zdHVkaWVzIiwiZ2VvX2FkcyIsImRldmljZV9jaGFyYWN0ZXJpc3RpY3MiXX0sInZlcnNpb24iOjIsImFjIjoiQUFBQS5BRm1BQ0FGayJ9; euconsent-v2=CP5P4cAP5P4cAAHABBENAkEgAAAAAEPgAAAAAABBqALMNCogD7AkJCLQcIoEAIgrCAigUAAAAkDRAQAmDAp2BgEusJEAIEUAAwQAgABRkACAAACABCIAJACgQAAQCAQAAAAACAQAEDAAKACwEAgABAdAxTCgAUCwgSMyIhTAhCgSCAlsoEEgLBBXCAIs8AKAREwUACAAABWAAACxWAxBICVCQQJZQbQAAEACAUUoVCCTwwADAkbLUDgibRlYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA.YAAACHwAAAAA; cookies_policy_accepted=b24gMjAyNC0wMS0zMSAwMzo0MDo1OSBpbXBsaWNpdA%3D%3D; countAudios=2; countaudioplay=a%3A1%3A%7Bi%3A121630930%3Bi%3A2%3B%7D' \
+  -H 'dnt: 1' \
+  -H 'referer: https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y-audios-mp3_rf_121630930_1.html' \
+  -H 'sec-ch-ua: "Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: document' \
+  -H 'sec-fetch-mode: navigate' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'sec-fetch-user: ?1' \
+  -H 'upgrade-insecure-requests: 1' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36' \
+  --compressed
+
+This gives the 302 where we would expect
+Trying without max-redirs just works. So the key is somewhere in the params above
+
+Below, we will keep removing params
+curl 'https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZukfKGwng..' \
+  -I -L --max-redirs 0 \
+  -H 'referer: https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y-audios-mp3_rf_121630930_1.html'
+
+referer tag is necessary, it seems
+also the search params
+so this appears to be the minimal thing that works
+note that every time I call it, the actual security token that is attached changes
+also, every time I load the page, the search params for the download change
+(t=laufo) stays constant, as do the two dots at the end
+
+Now let's see if we can find _something_ like it in the XML:
+no
+or the browser source
+or the attached javascript
+
+====
+
+Exploring the browser javascript: included in HTML file in test dir.
+showDownloadLink()
+Just shows stuff in .downloadlink
+$('.downloadlink').load('downloadlink_mm_121630930_46_b_1.html?tpl2=ok');
+let's see what happens if I wget this
+wget 'https://www.ivoox.com/downloadlink_mm_121630930_46_b_1.html?tpl2=ok'
+and without the search params
+wget 'https://www.ivoox.com/downloadlink_mm_121630930_46_b_1.html'
+Sameish with different link.
+There is the following:
+<div class="text-center">
+						<a href="https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZuld6iroA.." rel="nofollow" class="btn btn-default" onmouseover="activeSubMenu();" onmousedown="setDownloadAudioEvent(121630930);downloadFollow(event,'https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZuld6iroA..');" id="dlink">
+							<span>Descargar en PC (46MB)
+								</span>
+						</a>
+</div>
+The "dlink" id is unique so we can use that.
+It contains the "laufo" thingy that we need, too
+
+Now, the downloadlink html has this mm_blahblah_46_b_1 stuff. Let's see if other episodes have such stuff.
+
+Episode 73 uses 47_b_1
+Episode 1 uses 13. So it's not consistent
+Okay, so we need to load the description page html. Does the XML feed have it?
+Yes, in a <link> for each episode, after the <title>
