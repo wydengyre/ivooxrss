@@ -16,6 +16,7 @@ async function convert(conf: Config, feedURL: URL): Promise<string> {
 const rssItemRe =
 	/<link>([^<]+)<\/link><enclosure url="(https:\/\/www.ivoox.com\/[^"]+?)"/g;
 const linkPathnameRe = /^\/(.+)\.html$/;
+const guidRe = /<guid>([^<]+)<\/guid>/g;
 function convertRss(baseUrl: URL, rss: string): string {
 	let out = rss;
 	const matches = rss.matchAll(rssItemRe);
@@ -30,5 +31,9 @@ function convertRss(baseUrl: URL, rss: string): string {
 		const ourAudioUrl = new URL(audioUrlPathAndQuery, baseUrl);
 		out = out.replaceAll(audioUrl.href, ourAudioUrl.href);
 	}
+	out = stripGuids(out);
+
 	return out;
 }
+
+const stripGuids = (xml: string) => xml.replaceAll(guidRe, "");
