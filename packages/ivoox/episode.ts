@@ -1,12 +1,11 @@
-import { FetchWithErr } from "./fetch.js";
+import { FetchWithErr, OkResponse } from "./fetch.js";
 
-export { ParsedEpisodePage, ParsedDownloadPage, episodeAudio };
+export { ParsedEpisodePage, ParsedDownloadPage, episodeStream };
 
-async function episodeAudio(
+async function episodeStream(
 	fetchWithErr: FetchWithErr,
 	ivooxEpisode: URL,
-): Promise<URL> {
-	console.log("episodeAudio", ivooxEpisode.href);
+): Promise<OkResponse> {
 	// disable cache because ivoox returns temporary security keys
 	const disableCache: RequestInit = {
 		headers: { "Cache-Control": "no-cache" },
@@ -17,7 +16,21 @@ async function episodeAudio(
 	const downloadPage = await fetchWithErr(downloadPageUrl, disableCache);
 	const downloadPageHtml = await downloadPage.text();
 	const { downloadUrl } = parseDownloadPage(downloadPageHtml);
-	return downloadUrl;
+
+	// ensures we use the same server for audio download as we do for the description page
+	// handy for testing with a local ivoox simulator
+	const ivooxDownloadUrlStr = downloadUrl.href.replace(
+		downloadUrl.origin,
+		ivooxEpisode.origin,
+	);
+	const ivooxDownloadUrl = new URL(ivooxDownloadUrlStr);
+
+	const headers = new Headers({ Referer: ivooxEpisode.href });
+	const downloadStream = await fetchWithErr(ivooxDownloadUrl, { headers });
+	if (downloadStream.body === null) {
+		throw new Error(`Could not get download stream for ${downloadUrl}`);
+	}
+	return downloadStream;
 }
 
 type ParsedEpisodePage = {

@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { Server, createServer } from "node:http";
 import test from "node:test";
 import { createServerAdapter } from "@whatwg-node/server";
-import { Router, RouterType, html } from "itty-router";
+import { Router, RouterType, error, html } from "itty-router";
 import { UnstableDevWorker, unstable_dev } from "wrangler";
 
 test("worker", async (t) => {
@@ -46,23 +46,32 @@ async function episodeSuccess() {
 	]);
 
 	const router = Router();
+
 	const episodePageRel =
 		"/ep-87-constantino-reformas-necesarias-ii-moralidad-y-audios-mp3_rf_121630930_1.html";
 	router.get(episodePageRel, () => html(episodeHtml));
+
 	const downloadPageRel = "/downloadlink_mm_121630930_46_b_1.html";
 	router.get(downloadPageRel, () => html(downloadHtml));
+
+	const audioRel =
+		"/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3";
+	router.get(audioRel, () => {
+		const mockAudioData = new Uint8Array([0, 1, 2, 3]);
+		const headers = {
+			"Content-Type": "audio/mpeg",
+			"Content-Length": mockAudioData.length.toString(10),
+		};
+		return new Response(mockAudioData, { headers });
+	});
+	router.get("*", () => error(404, "ivoox simulator: Not found"));
 
 	await using servers = await Servers.createWithIvooxRouter(router);
 
 	const resp = await servers.worker.fetch(
 		"/bleh.mp3?link=ep-87-constantino-reformas-necesarias-ii-moralidad-y-audios-mp3_rf_121630930_1",
-		{ redirect: "manual" },
 	);
-	assert.strictEqual(resp.status, 302);
-	assert.strictEqual(
-		resp.headers.get("location"),
-		"https://www.ivoox.com/ep-87-constantino-reformas-necesarias-ii-moralidad-y_md_121630930_1.mp3?t=laufoZuld6iroA..",
-	);
+	assert.strict(resp.ok);
 }
 
 class Servers {
@@ -101,25 +110,12 @@ class Servers {
 		const experimental = { disableExperimentalWarning: true };
 		const worker = await unstable_dev("worker.ts", {
 			// uncomment for help debugging
-			logLevel,
+			// logLevel,
 			experimental,
 			vars,
 		});
 
 		return new Servers(worker, httpServer);
-	}
-
-	get ivooxServerPort(): number {
-		const ivooxAddress = this.#mockIvooxServer.address();
-		if (ivooxAddress === null) {
-			throw new Error("ivoox server address is null");
-		}
-		if (typeof ivooxAddress === "string") {
-			throw new Error(
-				`ivoox server address is a string, we want an object: ${ivooxAddress}`,
-			);
-		}
-		return ivooxAddress.port;
 	}
 
 	async [Symbol.asyncDispose](): Promise<void> {
