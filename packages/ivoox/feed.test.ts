@@ -1,5 +1,5 @@
 import { strict as assert } from "node:assert";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { mock, test } from "node:test";
 import { convert } from "./feed.js";
 import { OkResponse } from "./fetch.js";
