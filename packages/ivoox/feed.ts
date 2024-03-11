@@ -1,6 +1,6 @@
-import { FetchWithErr } from "./fetch.js";
+import type { FetchWithErr } from "./fetch.js";
 
-export { Config, convert };
+export { type Config, convert };
 
 type Config = Readonly<{
 	baseURL: URL;

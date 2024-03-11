@@ -1,8 +1,8 @@
 import { convert } from "@ivooxrss/ivoox/feed.js";
-import { FetchWithErr, NotOk } from "@ivooxrss/ivoox/fetch.js";
+import { type FetchWithErr, NotOk } from "@ivooxrss/ivoox/fetch.js";
 import { error } from "itty-router";
 
-export { Config, feedHandler };
+export { type Config, feedHandler };
 
 type Config = Readonly<{
 	baseURL: URL;

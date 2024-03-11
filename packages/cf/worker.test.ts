@@ -1,10 +1,10 @@
 import { strict as assert } from "node:assert";
 import { readFile } from "node:fs/promises";
-import { Server, createServer } from "node:http";
+import { type Server, createServer } from "node:http";
 import test from "node:test";
 import { createServerAdapter } from "@whatwg-node/server";
-import { Router, RouterType, error, html } from "itty-router";
-import { UnstableDevWorker, unstable_dev } from "wrangler";
+import { Router, type RouterType, error, html } from "itty-router";
+import { type UnstableDevWorker, unstable_dev } from "wrangler";
 
 test("worker", async (t) => {
 	await t.test(feedSuccess);

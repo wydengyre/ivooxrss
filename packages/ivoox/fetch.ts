@@ -1,4 +1,4 @@
-export { FetchWithErr, NotOk, OkResponse, mkFetchWithErr };
+export { type FetchWithErr, NotOk, type OkResponse, mkFetchWithErr };
 
 type FetchWithErr = (
 	input: RequestInfo | URL,

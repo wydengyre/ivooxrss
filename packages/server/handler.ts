@@ -2,9 +2,9 @@ import { mkFetchWithErr } from "@ivooxrss/ivoox/fetch.js";
 import { Router, error } from "itty-router";
 import { episodeHandler } from "./episode-handler.js";
 import { feedHandler } from "./feed-handler.js";
-import { Logger } from "./logger.js";
+import type { Logger } from "./logger.js";
 
-export { Config, FetchHandler, mkFetchHandler };
+export { type Config, type FetchHandler, mkFetchHandler };
 
 type Config = {
 	baseURL: URL;
