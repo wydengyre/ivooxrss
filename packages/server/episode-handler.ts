@@ -1,8 +1,12 @@
 import { episodeStream } from "@ivooxrss/ivoox/episode.js";
-import { FetchWithErr, NotOk, OkResponse } from "@ivooxrss/ivoox/fetch.js";
+import {
+	type FetchWithErr,
+	NotOk,
+	type OkResponse,
+} from "@ivooxrss/ivoox/fetch.js";
 import { error } from "itty-router";
 
-export { Config, episodeHandler };
+export { type Config, episodeHandler };
 
 type Config = {
 	ivooxBaseURL: URL;

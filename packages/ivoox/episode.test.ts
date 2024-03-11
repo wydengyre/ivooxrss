@@ -2,7 +2,7 @@ import { strict as assert } from "node:assert";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { episodeStream } from "./episode.js";
-import { FetchWithErr, OkResponse } from "./fetch.js";
+import type { FetchWithErr, OkResponse } from "./fetch.js";
 
 test("parseEpisodePage", async (t) => {
 	await t.test(testEpisodeAudio);

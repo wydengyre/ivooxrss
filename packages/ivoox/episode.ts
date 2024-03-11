@@ -1,6 +1,6 @@
-import { FetchWithErr, OkResponse } from "./fetch.js";
+import type { FetchWithErr, OkResponse } from "./fetch.js";
 
-export { ParsedEpisodePage, ParsedDownloadPage, episodeStream };
+export { type ParsedEpisodePage, type ParsedDownloadPage, episodeStream };
 
 async function episodeStream(
 	fetchWithErr: FetchWithErr,
