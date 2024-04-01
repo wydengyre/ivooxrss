@@ -4,7 +4,7 @@ import { episodeHandler } from "./episode-handler.js";
 import { feedHandler } from "./feed-handler.js";
 import type { Logger } from "./logger.js";
 
-export { type Config, type FetchHandler, mkFetchHandler };
+export { type Config, mkFetch };
 
 type Config = {
 	baseURL: URL;
@@ -13,8 +13,7 @@ type Config = {
 	logger: Logger;
 };
 
-type FetchHandler = (req: Request) => Promise<Response>;
-function mkFetchHandler(conf: Config): FetchHandler {
+function mkFetch(conf: Config): typeof fetch {
 	const fetchWithErr = mkFetchWithErr(conf.fetch);
 
 	const feedHandlerConf = {
@@ -32,15 +31,13 @@ function mkFetchHandler(conf: Config): FetchHandler {
 	const handleEpisode = (request: Request) =>
 		episodeHandler(fetchEpisodeConf, request);
 
-	const router = Router()
+	return Router()
 		.get("/*.xml", handleFeed)
 		.get("/*.mp3", handleEpisode)
-		.all("*", notFound);
-
-	return (request: Request) =>
-		router.handle(request).catch((err) => {
+		.all("*", notFound)
+		.catch((err: Error) => {
 			conf.logger.error(err);
 			return error(500, "failed to process request");
-		});
+		}).fetch;
 }
 const notFound = () => error(404, "Not found.");
