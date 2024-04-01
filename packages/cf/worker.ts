@@ -1,4 +1,4 @@
-import { mkFetchHandler } from "@ivooxrss/server/handler.js";
+import { mkFetch } from "@ivooxrss/server/handler.js";
 import * as logger from "@ivooxrss/server/logger.js";
 
 export default (<ExportedHandler<Env>>{
@@ -8,7 +8,7 @@ export default (<ExportedHandler<Env>>{
 		const l = logger.atLevelStr(env.LOG_LEVEL);
 
 		const fetchFn = fetch.bind(globalThis);
-		const fetchHandler = mkFetchHandler({
+		const fetchHandler = mkFetch({
 			baseURL,
 			ivooxBaseURL,
 			fetch: fetchFn,
