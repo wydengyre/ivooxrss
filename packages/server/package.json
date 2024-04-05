@@ -10,7 +10,7 @@
 	"devDependencies": {
 		"@types/node": "^20.12.4",
 		"tsx": "^4.7.2",
-		"typescript": "^5.4.3"
+		"typescript": "^5.4.4"
 	},
 	"dependencies": {
 		"itty-router": "^5.0.9",
