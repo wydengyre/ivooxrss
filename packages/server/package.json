@@ -9,7 +9,7 @@
 	"type": "module",
 	"devDependencies": {
 		"@types/node": "^20.14.2",
-		"tsx": "^4.15.4",
+		"tsx": "^4.15.5",
 		"typescript": "^5.4.5"
 	},
 	"dependencies": {
