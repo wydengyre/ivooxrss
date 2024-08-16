@@ -18,7 +18,7 @@
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240729.0",
 		"@types/node": "^22.2.0",
-		"@whatwg-node/server": "^0.9.46",
+		"@whatwg-node/server": "^0.9.47",
 		"itty-router": "^5.0.17",
 		"tsx": "^4.17.0",
 		"typescript": "^5.5.4",
