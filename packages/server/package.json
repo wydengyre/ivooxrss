@@ -8,7 +8,7 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@types/node": "^22.5.3",
+		"@types/node": "^22.5.4",
 		"tsx": "^4.19.0",
 		"typescript": "^5.5.4"
 	},
