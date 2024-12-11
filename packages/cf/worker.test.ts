@@ -4,7 +4,7 @@ import { type Server, createServer } from "node:http";
 import test from "node:test";
 import { createServerAdapter } from "@whatwg-node/server";
 import { Router, type RouterType, error, html } from "itty-router";
-import { type UnstableDevWorker, unstable_dev } from "wrangler";
+import { type Unstable_DevWorker, unstable_dev } from "wrangler";
 
 test("worker", async (t) => {
 	await t.test(feedSuccess);
@@ -75,10 +75,10 @@ async function episodeSuccess() {
 }
 
 class Servers {
-	readonly worker: UnstableDevWorker;
+	readonly worker: Unstable_DevWorker;
 	readonly #mockIvooxServer: Server;
 
-	private constructor(worker: UnstableDevWorker, mockIvooxServer: Server) {
+	private constructor(worker: Unstable_DevWorker, mockIvooxServer: Server) {
 		this.worker = worker;
 		this.#mockIvooxServer = mockIvooxServer;
 	}
