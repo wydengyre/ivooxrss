@@ -21,7 +21,7 @@
 		"@whatwg-node/server": "^0.9.71",
 		"itty-router": "^5.0.18",
 		"tsx": "^4.19.3",
-		"typescript": "^5.7.3",
+		"typescript": "^5.8.2",
 		"wrangler": "^3.111.0"
 	},
 	"dependencies": {
