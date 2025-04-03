@@ -16,7 +16,7 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20250402.0",
+		"@cloudflare/workers-types": "^4.20250403.0",
 		"@types/node": "^22.14.0",
 		"@whatwg-node/server": "^0.10.3",
 		"itty-router": "^5.0.18",
