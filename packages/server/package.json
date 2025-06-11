@@ -8,9 +8,8 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@types/node": "^24.0.0",
-		"tsx": "^4.20.0",
-		"typescript": "^5.8.3"
+                "@types/node": "^24.0.0",
+                "typescript": "^5.8.3"
 	},
 	"dependencies": {
 		"itty-router": "^5.0.18",
