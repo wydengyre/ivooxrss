@@ -9,10 +9,10 @@ just ci
 
 If any of these commands fail, include the output in your PR description.
 
-If `just ci` fails due to formatting errors reported by Biome, you can fix them
-automatically by running:
+If `just ci` fails because Biome reports formatting issues, you can apply
+Biome's fixes automatically by running:
 
 ```
-npm run lint
+just lint
 ```
-This will apply Biome's formatting fixes to the entire repository.
+This target runs `npm run lint` for you and formats the entire repository.
