@@ -1,8 +1,8 @@
-import { mkFetchWithErr } from "@ivooxrss/ivoox/fetch.js";
+import { mkFetchWithErr } from "@ivooxrss/ivoox/fetch.ts";
 import { Router, error } from "itty-router";
-import { episodeHandler } from "./episode-handler.js";
-import { feedHandler } from "./feed-handler.js";
-import type { Logger } from "./logger.js";
+import { episodeHandler } from "./episode-handler.ts";
+import { feedHandler } from "./feed-handler.ts";
+import type { Logger } from "./logger.ts";
 
 export { type Config, mkFetch };
 

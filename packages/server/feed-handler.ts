@@ -1,5 +1,5 @@
-import { convert } from "@ivooxrss/ivoox/feed.js";
-import { type FetchWithErr, NotOk } from "@ivooxrss/ivoox/fetch.js";
+import { convert } from "@ivooxrss/ivoox/feed.ts";
+import { type FetchWithErr, NotOk } from "@ivooxrss/ivoox/fetch.ts";
 import { error } from "itty-router";
 
 export { type Config, feedHandler };

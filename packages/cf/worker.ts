@@ -1,5 +1,5 @@
-import { mkFetch } from "@ivooxrss/server/handler.js";
-import * as logger from "@ivooxrss/server/logger.js";
+import { mkFetch } from "@ivooxrss/server/handler.ts";
+import * as logger from "@ivooxrss/server/logger.ts";
 
 export default (<ExportedHandler<Env>>{
 	fetch: (request, env, _ctx) => {
