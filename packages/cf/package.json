@@ -11,12 +11,11 @@
 		"test-only": "tsx --tsconfig tsconfig.json --test --test-only '**/*.test.ts'",
 
 		"typecheck": "npm run typecheck-prod && npm run typecheck-test",
-		"typecheck-prod": "tsc",
+		"typecheck-prod": "wrangler types && tsc",
 		"typecheck-test": "tsc --project tsconfig.test.json"
 	},
 	"type": "module",
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20250613.0",
 		"@types/node": "^24.0.1",
 		"@whatwg-node/server": "^0.10.10",
 		"itty-router": "^5.0.18",
