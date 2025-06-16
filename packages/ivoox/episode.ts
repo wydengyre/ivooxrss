@@ -1,4 +1,4 @@
-import type { FetchWithErr, OkResponse } from "./fetch.js";
+import type { FetchWithErr, OkResponse } from "./fetch.ts";
 
 export { type ParsedEpisodePage, type ParsedDownloadPage, episodeStream };
 

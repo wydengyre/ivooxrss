@@ -6,10 +6,8 @@
 	"scripts": {
 		"deploy": "wrangler --env prod deploy",
 		"deploy-preview": "wrangler deploy --dry-run --outdir dist",
-
-		"test": "tsx --tsconfig tsconfig.json --test '**/*.test.ts'",
-		"test-only": "tsx --tsconfig tsconfig.json --test --test-only '**/*.test.ts'",
-
+		"test": "node --test",
+		"test-only": "node --test --test-only",
 		"typecheck": "npm run typecheck-prod && npm run typecheck-test",
 		"typecheck-prod": "wrangler types && tsc",
 		"typecheck-test": "tsc --project tsconfig.test.json"
@@ -19,7 +17,6 @@
 		"@types/node": "^24.0.1",
 		"@whatwg-node/server": "^0.10.10",
 		"itty-router": "^5.0.18",
-		"tsx": "^4.20.3",
 		"typescript": "^5.8.3",
 		"wrangler": "^4.20.0"
 	},

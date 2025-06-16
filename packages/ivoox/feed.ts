@@ -1,4 +1,4 @@
-import type { FetchWithErr } from "./fetch.js";
+import type { FetchWithErr } from "./fetch.ts";
 
 export { type Config, convert };
 

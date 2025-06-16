@@ -1,8 +1,8 @@
 import { strict as assert } from "node:assert";
 import { readFile } from "node:fs/promises";
 import { mock, test } from "node:test";
-import { convert } from "./feed.js";
-import type { OkResponse } from "./fetch.js";
+import { convert } from "./feed.ts";
+import type { OkResponse } from "./fetch.ts";
 
 test("feed", async (t) => {
 	await t.test(testConvert);
