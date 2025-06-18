@@ -1,9 +1,9 @@
 import { strict as assert } from "node:assert";
 import { readFile } from "node:fs/promises";
-import { type Server, createServer } from "node:http";
+import { createServer, type Server } from "node:http";
 import test from "node:test";
 import { createServerAdapter } from "@whatwg-node/server";
-import { Router, type RouterType, error, html } from "itty-router";
+import { error, html, Router, type RouterType } from "itty-router";
 import { type Unstable_DevWorker, unstable_dev } from "wrangler";
 
 test("worker", async (t) => {
