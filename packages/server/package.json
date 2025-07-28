@@ -12,7 +12,7 @@
 		"typescript": "^5.8.3"
 	},
 	"dependencies": {
-		"itty-router": "^5.0.18",
+		"itty-router": "^5.0.20",
 		"@ivooxrss/ivoox": "*"
 	}
 }
